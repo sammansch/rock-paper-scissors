@@ -1,60 +1,78 @@
+//set initial scores
+let playerScore = 0;
+let computerScore = 0;
+
+//randomly selects a play for the computer to make
 function computerPlay() {
     const moves = Array("rock", "paper", "scissors");
     let computerMove = moves[Math.floor(Math.random()*moves.length)];
     return computerMove;
 }
 
+//listens for clicks for the player's selection
+let buttons = document.querySelectorAll(".btn");
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+    
+        playRound(button.id, computerPlay());      
+    });
+});
+
+const roundMsg = document.querySelector('.round-result');
+
+//plays one round of rock, paper, scissors
 function playRound(playerSelection, computerSelection){
-    let playerMove = playerSelection.toLowerCase();
 
-    if (playerMove === "rock" && computerSelection === "paper") {
-        computerScore += 1;
-        return "You lose! Paper beats rock";
+    const winMsg = `You win! ${playerSelection} beats ${computerSelection}.`;
+    const loseMsg = `You lose. ${computerSelection} beats ${playerSelection}.`;
+    const tieMsg = `This round is a tie. You both chose ${playerSelection}.`;
+
+    console.log(`player score: ${playerScore} computer score: ${computerScore}`);
+    
+    if ((computerSelection === "rock" && playerSelection === "scissors") ||
+        (computerSelection === "paper" && playerSelection === "rock") || 
+        (computerSelection === "scissors" && playerSelection === "paper")){
+
+        updateScore('computer');
+        roundMsg.textContent = loseMsg;
+        checkWinner(playerScore, computerScore);
     }
-    else if (playerMove === "rock" && computerSelection === "scissors") {
-        playerScore += 1;
-        return "You win! Rock beats scissors"
-    } 
-    else if (playerMove === "paper" && computerSelection === "rock") {
-        playerScore += 1;
-        return "You win! Paper beats rock";
-    }
-    else if (playerMove === "paper" && computerSelection === "scissors") {
-        computerScore += 1;
-        return "You lose! Scissors beat paper"
-    } 
-    else if (playerMove === "scissors" && computerSelection === "paper") {
-        playerScore += 1;
-        return "You win! Scissors beat paper";
-    }
-    else if (playerMove === "scissors" && computerSelection === "rock") {
-        computerScore += 1;
-        return "You lose! Rock beats scissors"
+    else if ((playerSelection === "rock" && computerSelection === "scissors") ||
+             (playerSelection === "paper" && computerSelection === "rock") || 
+             (playerSelection === "scissors" && computerSelection === "paper")) {
+        
+        updateScore('player');
+        roundMsg.textContent = winMsg;
+        checkWinner(playerScore, computerScore);
     } else {
-        return "Draw!"
+        roundMsg.textContent = tieMsg;
     }
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
-function game() {
-    for (let i = 0; i < 5; i++ ){
-        let playerSelection = window.prompt("Choose 'rock', 'paper', or 'scissors':")
-        let computerSelection = computerPlay();
-
-        var result = playRound(playerSelection, computerSelection);
-
-        console.log(result);
-        console.log(playerScore, computerScore);
-
-    }
-    if (playerScore > computerScore) {
-        alert(`Congratulations! You win!\n\nFinal Score:\nYou: ${playerScore} Computer: ${computerScore}`);
-    } else if (playerScore == computerScore) {
-        alert(`Looks like a draw!\n\nFinal Score:\nYou: ${playerScore} Computer: ${computerScore}`)
+//manipulate the DOM to update the score after each round
+function updateScore(winner) {
+    let showComputerScore = document.querySelector('#computer-score');
+    let showPlayerScore = document.querySelector('#player-score');
+    
+    if (winner == "player") {
+        playerScore += 1;       
+        showPlayerScore.textContent = playerScore;
+    } else if (winner == "computer") {
+        computerScore += 1;
+        showComputerScore.textContent = computerScore;       
     } else {
-        alert(`Better luck next time\n\nFinal Score:\nYou: ${playerScore} Computer: ${computerScore}`);
+        return;
+    }      
+}
+
+//checks score after each round to determine winner (first to 5)
+function checkWinner(playerScore, computerScore) {
+    
+    if (playerScore == 5) {
+        roundMsg.textContent = "Congratulations! You win!";
+        buttons.forEach(button => button.disabled = true);
+    } else if (computerScore == 5) {
+        roundMsg.textContent = "Better luck next time! Computer wins.";
+        buttons.forEach(button => button.disabled = true);
     }
 }
-console.log(game());
