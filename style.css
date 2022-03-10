@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 75vh;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.player-container {
+  display: flex;
+  size: 50vh;
+  justify-content: space-evenly;
+  margin: 20px;
+}
+
+.btn {
+  padding: 16px 40px;
+}
+
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreboard {
+  border-spacing: 0em;
+  margin-top: 0px;
+}
+
+td {
+  padding: 4px 8px;
+  min-width: 75px;
+  text-align: center;
+  border: 1px solid rebeccapurple;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+}
