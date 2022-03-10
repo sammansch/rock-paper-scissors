@@ -1,52 +1,87 @@
+body {
+  margin: 0;
+  background-color: #e5e3c9;
+  font-family: "Hubballi", "Segoe UI", "Open Sans", "Helvetica Neue", sans-serif;
+}
+
 .container {
+  position: relative;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 16px;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   justify-content: center;
-  min-height: 75vh;
+  flex-wrap: wrap;
+  padding: 2.5rem 0;
 }
 
 .header {
   display: flex;
   justify-content: center;
-  font-size: 24px;
+  font-size: 64px;
+  padding-top: 20px;
 }
 
 .player-container {
   display: flex;
-  size: 50vh;
-  justify-content: space-evenly;
-  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.btn {
+.btn,
+.new-game {
   padding: 16px 40px;
+  font-family: inherit;
+  font-size: 16px;
+  gap: 20px;
 }
 
 .score-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+.name {
+  background-color: #b4cfb0;
 }
 
 .scoreboard {
   border-spacing: 0em;
-  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-game {
+  margin-top: 1rem;
 }
 
 td {
   padding: 4px 8px;
   min-width: 75px;
   text-align: center;
-  border: 1px solid rebeccapurple;
+  border: 1px solid #789395;
 }
 
 .footer {
-  position: fixed;
+  font-family: "Barlow", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  margin-top: 16px;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 52px;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;

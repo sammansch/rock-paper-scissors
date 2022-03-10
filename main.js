@@ -22,12 +22,9 @@ const roundMsg = document.querySelector('.round-result');
 
 //plays one round of rock, paper, scissors
 function playRound(playerSelection, computerSelection){
-
     const winMsg = `You win! ${playerSelection} beats ${computerSelection}.`;
     const loseMsg = `You lose. ${computerSelection} beats ${playerSelection}.`;
     const tieMsg = `This round is a tie. You both chose ${playerSelection}.`;
-
-    console.log(`player score: ${playerScore} computer score: ${computerScore}`);
     
     if ((computerSelection === "rock" && playerSelection === "scissors") ||
         (computerSelection === "paper" && playerSelection === "rock") || 
@@ -65,14 +62,27 @@ function updateScore(winner) {
     }      
 }
 
+//create "new game" button that will display after someone wins
+const gameBoard = document.querySelector('.game');
+const newGameBtn = document.createElement('button');
+newGameBtn.className = "new-game";
+
 //checks score after each round to determine winner (first to 5)
 function checkWinner(playerScore, computerScore) {
     
     if (playerScore == 5) {
         roundMsg.textContent = "Congratulations! You win!";
         buttons.forEach(button => button.disabled = true);
+        newGameBtn.textContent = "New Game";
+        gameBoard.appendChild(newGameBtn);
+
     } else if (computerScore == 5) {
         roundMsg.textContent = "Better luck next time! Computer wins.";
         buttons.forEach(button => button.disabled = true);
+        newGameBtn.textContent = "New Game";
+        gameBoard.appendChild(newGameBtn);
     }
 }
+
+//refresh page for new game
+newGameBtn.addEventListener('click',() => location.reload());
